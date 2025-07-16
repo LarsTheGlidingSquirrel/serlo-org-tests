@@ -1,29 +1,27 @@
 /// <reference types="cypress" />
 
-// describe("https://serlo.org/auth/login", () => {
-//   beforeEach(() => {
-//     // Cypress starts out with a blank slate for each test
-//     // so we must tell it to visit our website with the `cy.visit()` command.
-//     // Since we want to visit the same URL at the start of all our tests,
-//     // we include it in our beforeEach function so that it runs before each test
-//     cy.visit("https://serlo.org/auth/login");
-//   });
-
-//   it("allows user to log in", () => {
-//
-//   });
-// });
-
 describe("https://serlo.org/", () => {
+  it("is available in German", () => {
+    cy.visit("https://de.serlo.org/");
+  });
+  it("is available in English", () => {
+    cy.visit("https://en.serlo.org/");
+  });
+  it("is available in Spanish", () => {
+    cy.visit("https://es.serlo.org/");
+  });
+});
+
+describe.only("https://de.serlo.org/auth/login", () => {
   beforeEach(() => {
-    // Cypress starts out with a blank slate for each test
-    // so we must tell it to visit our website with the `cy.visit()` command.
-    // Since we want to visit the same URL at the start of all our tests,
-    // we include it in our beforeEach function so that it runs before each test
-    cy.visit("https://serlo.org/");
+    cy.visit("https://de.serlo.org/auth/login");
   });
 
-  it("shows link to 'Fächer'", () => {
-    cy.contains("Fächer");
+  it("allows user to log in", () => {
+    cy.get('input[name="identifier"]').type("LarsTest");
+    cy.get('input[name="password"]').type(Cypress.env("SERLO_ORG_PASSWORD"));
+    cy.contains("button", "Anmelden").click();
+    // User gets redirected to home on successful login
+    cy.url({ timeout: 10000 }).should("eq", "https://de.serlo.org/");
   });
 });
