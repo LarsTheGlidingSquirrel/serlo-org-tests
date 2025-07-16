@@ -12,7 +12,7 @@ describe("https://serlo.org/", () => {
   });
 });
 
-describe.only("https://de.serlo.org/auth/login", () => {
+describe("https://de.serlo.org/auth/login", () => {
   beforeEach(() => {
     cy.visit("https://de.serlo.org/auth/login");
   });
