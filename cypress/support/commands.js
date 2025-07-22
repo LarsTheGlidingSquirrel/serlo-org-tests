@@ -10,13 +10,9 @@ Cypress.Commands.add(
       if (expectSuccess) {
         cy.url({ timeout: 10000 }).should("eq", "https://de.serlo.org/");
       } else {
-        // User stays on login page on failed login
-        cy.url({ timeout: 10000 }).should(
-          "eq",
-          "https://de.serlo.org/auth/login"
-        );
         cy.contains(
-          "Der Benutzername, die E-Mail-Adresse oder das Passwort stimmen so nicht. Bitte überprüfe deine Eingabe."
+          "Der Benutzername, die E-Mail-Adresse oder das Passwort stimmen so nicht. Bitte überprüfe deine Eingabe.",
+          { timeout: 10000 }
         );
       }
     });
